@@ -10,6 +10,50 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="keys.js"></script>
     <script>
+        /*
+    let ncmb = new NCMB(appKey, clientKey);
+    let Assignments = ncmb.DataStore("assignments");
+    let name = "name";
+    let level = "level";
+    */
+    let ncmb = new NCMB(appKey, clientKey);
+    let UTdata = ncmb.DataStore("Assignments");
+    let key = "name";
+
+    function enterData() {
+        /*
+      let Assignments = new Assignments();
+      let valueName = $("#nameData").val();
+      let valueLevel = parseInt($("#levelData").val());
+      Assignments.set(name, valueName)
+        .save()
+        .then(function(results) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-success");
+          $("#display").html("enter success");
+        })
+        .catch(function(results) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning");
+          $("#display").html("enter fail");
+        })
+        */
+        let uTdata = new UTdata();
+      let value = $("#nameData").val();
+      uTdata.set(key, value)
+        .save()
+        .then(function(results) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-success");
+          $("#display").html("enter success");
+        })
+        .catch(function(results) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning");
+          $("#display").html("enter fail");
+        })
+    }
+
     </script>
 </head>
 <body>
@@ -27,8 +71,10 @@
         <div>
             <label for="level">level:</label>
             <input type="number" id="levelData" placeholder="レベル">
-            <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
-            <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
+
+        </div>
+        <div id="display" class="text-light bg-info">
+            Results
         </div>
 
 
