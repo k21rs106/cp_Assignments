@@ -15,6 +15,25 @@
     let name = "name";
     let level = "level";
 
+    function fetchAll(){
+        Assignment.fetchAll()
+        .then(function(results){
+            let msg = "";
+            for(let i = 0; i < results.length; i++){
+                msg += results[i].get(name + "<br>");
+            }
+            $("#display").removeClass();
+          $("#display").addClass("text-light");
+          $("#display").addClass("bg-primary");
+          $("#display").html(msg);
+        })
+        .catch(function(error) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning");
+          $("#display").html("delete fail:" + JSON.stringify(error));
+        })
+    }
+
     function enterData() {
         let assignment = new Assignment();
       let valueN = $("#nameData").val();
@@ -55,6 +74,20 @@
         <div class = "row justify-content-end">
             <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
             <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
+            
+        </div>
+        
+        <div class = "row justify-content-between">
+            <div>
+            </div>
+            <div>
+            <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
+            </div>
+            <div>
+            <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
+            </div>
+            <div>
+            </div>
             
         </div>
         
