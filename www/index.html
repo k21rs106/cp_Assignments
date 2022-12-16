@@ -15,14 +15,14 @@
     let name = "name";
     let level = "level";
 
-    function fetchAll(){
-        Assignment.fetchAll()
-        .then(function(results){
-            let msg = "";
-            for(let i = 0; i < results.length; i++){
-                msg += results[i].get(name + "<br>");
-            }
-            $("#display").removeClass();
+    function fetchAll() {
+      Assignment.fetchAll()
+        .then(function(results) {
+          let msg = "";
+          for (let i = 0; i < results.length; i++) {
+            msg += results[i].get(key) + "<br>";
+          }
+          $("#display").removeClass();
           $("#display").addClass("text-light");
           $("#display").addClass("bg-primary");
           $("#display").html(msg);
@@ -76,21 +76,13 @@
             <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
             
         </div>
-        
-        <div class = "row justify-content-between">
-            <div>
-            </div>
-            <div>
-            <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
-            </div>
-            <div>
-            <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
-            </div>
-            <div>
-            </div>
-            
+
+        <div class = "row justify-content-center">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary">nameSort</button>
+                <button type="button" class="btn btn-secondary">levelSort</button>
+                </div>
         </div>
-        
 
 
 
