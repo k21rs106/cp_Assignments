@@ -16,23 +16,11 @@
     let level = "level";
 
     function fetchAll() {
-      Assignment.fetchAll()
-        .then(function(results) {
-          let msg = "";
-          for (let i = 0; i < results.length; i++) {
-            msg += results[i].get(key) + "<br>";
-          }
-          $("#display").removeClass();
-          $("#display").addClass("text-light");
-          $("#display").addClass("bg-primary");
-          $("#display").html(msg);
-        })
-        .catch(function(error) {
-          $("#display").removeClass();
-          $("#display").addClass("bg-warning");
-          $("#display").html("delete fail:" + JSON.stringify(error));
-        })
-    }
+            Assignment.order("name", false).fetchAll()
+                .then(function(results) {
+                    showResults(results);
+                })
+        }
 
     function enterData() {
         let assignment = new Assignment();
@@ -52,6 +40,21 @@
           $("#display").html("enter fail");
         })
     }
+
+    function showResults(results) {
+            // テーブルのヘッダを生成
+            let msg = "<table><tr><th>name</th><th>Lvl</th></tr>";
+            for (let i = 0; i < results.length; i++) {
+                // 各データを収めた表の列を生成
+                msg += "<tr>";
+                msg += "<td>" + results[i].name + "</td>";
+                msg += "<td class='num'>" + results[i].level + "</td>";
+                msg += "</tr>";
+            }
+            // テーブルのテイラを生成
+            msg += "</table>";
+            $("#display").html(msg);
+        }
 
     </script>
 </head>

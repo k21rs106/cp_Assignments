@@ -1,2 +1,14 @@
 /**/
 
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: solid;
+  border-color: darkblue;
+}
+
+td.num {
+  text-align: right;
+}
