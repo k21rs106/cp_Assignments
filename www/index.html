@@ -20,9 +20,9 @@
                 .then(function(results) {
                     showResults(results);
                 })
-        }
+    }
 
-    function enterData() {
+    function registData() {
         let assignment = new Assignment();
       let valueN = $("#nameData").val();
       let valueL = parseInt($("#levelData").val());
@@ -32,13 +32,27 @@
         .then(function(results) {
           $("#display").removeClass();
           $("#display").addClass("bg-success");
-          $("#display").html("enter success");
+          $("#display").html("regist success");
         })
         .catch(function(results) {
           $("#display").removeClass();
           $("#display").addClass("bg-warning");
-          $("#display").html("enter fail");
+          $("#display").html("regist fail");
         })
+    }
+
+    function fetchName() {
+            Assignment.order("name", true).fetchAll()
+                .then(function(results) {
+                    showResults(results);
+                })
+    }
+    
+    function fetchLevel() {
+            Assignment.order("level", true).fetchAll()
+                .then(function(results) {
+                    showResults(results);
+                })
     }
 
     function showResults(results) {
@@ -75,15 +89,15 @@
             
         </div>
         <div class = "row justify-content-end">
-            <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
+            <a onclick="registData()" class="btn btn-outline-secondary" role="button">Regist</a>
             <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
             
         </div>
 
         <div class = "row justify-content-center">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-dark">nameSort</button>
-                <button type="button" class="btn btn-secondary">levelSort</button>
+                <button onclick="fetchName()" type="button" class="btn btn-dark">nameSort</button>
+                <button onclick="fetchLevel()" type="button" class="btn btn-secondary">levelSort</button>
                 </div>
         </div>
 
