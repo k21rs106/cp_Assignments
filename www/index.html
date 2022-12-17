@@ -16,7 +16,7 @@
     let level = "level";
 
     function fetchAll() {
-            Assignment.order("name", false).fetchAll()
+            Assignment.order("name", true).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
@@ -42,7 +42,7 @@
     }
 
     function fetchName() {
-            Assignment.order("name", true).fetchAll()
+            Assignment.order("name", false).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
