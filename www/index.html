@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -10,78 +11,80 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="keys.js"></script>
     <script>
-    let ncmb = new NCMB(appKey, clientKey);
-    let Assignment = ncmb.DataStore("Assignments");
-    let name = "name";
-    let level = "level";
+        let ncmb = new NCMB(appKey, clientKey);
+        let Assignment = ncmb.DataStore("Assignments");
+        let name = "name";
+        let level = "level";
 
-    function fetchAll() {
+        function fetchAll() {
             Assignment.order("name", true).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
-    }
-
-    function registData() {
-        let assignment = new Assignment();
-      let valueN = $("#nameData").val();
-      let valueL = parseInt($("#levelData").val());
-      assignment.set(name, valueN)
-      .set(level, valueL)
-        .save()
-        .then(function(results) {
-          $("#display").removeClass();
-          $("#display").addClass("bg-success");
-          $("#display").html("regist success");
-        })
-        .catch(function(results) {
-          $("#display").removeClass();
-          $("#display").addClass("bg-warning");
-          $("#display").html("regist fail");
-        })
-    }
-
-    function deleteData(){
-        Assignment.fetch()
-        .then(function(results){
-            return results.delete();
-        })
-        .then(function(results){
-            $("#display").removeClass();
-            $("#display").addClass("text-light");
-            $("#display").addClass("bg-primary");
-            $("#display").html("delete success");
-        })
-        .catch(function(error) {
-          $("#display").removeClass();
-          $("#display").addClass("bg-warning");
-          $("#display").html("delete fail:" + JSON.stringify(error));
-        })
-    }
-
-    function nameSort() {
-        let valueN = $("#nameData").val();
-        if(valueN == ""){
-            Assignment.order("name", false).fetchAll()
-                .then(function(results) {
-                    showResults(results);
-                })
-        }else{
-            Assignment.equalTo(name, valueN).fetchAll()
-            .then(function(results){
-                showResults(results);
-            })
         }
-    }
-    
-    function levelSort() {
+
+        function registData() {
+            let assignment = new Assignment();
+            let valueN = $("#nameData").val();
+            let valueL = parseInt($("#levelData").val());
+            if (valueN != "") {
+                assignment.set(name, valueN)
+                    .set(level, valueL)
+                    .save()
+                    .then(function(results) {
+                        $("#display").removeClass();
+                        $("#display").addClass("bg-success");
+                        $("#display").html("regist success");
+                    })
+                    .catch(function(results) {
+                        $("#display").removeClass();
+                        $("#display").addClass("bg-warning");
+                        $("#display").html("regist fail");
+                    })
+            }
+        }
+
+        function deleteData() {
+            Assignment.fetch()
+                .then(function(results) {
+                    return results.delete();
+                })
+                .then(function(results) {
+                    $("#display").removeClass();
+                    $("#display").addClass("text-light");
+                    $("#display").addClass("bg-primary");
+                    $("#display").html("delete success");
+                })
+                .catch(function(error) {
+                    $("#display").removeClass();
+                    $("#display").addClass("bg-warning");
+                    $("#display").html("delete fail:" + JSON.stringify(error));
+                })
+        }
+
+        function nameSort() {
+            let valueN = $("#nameData").val();
+            if (valueN == "") {
+                Assignment.order("name", false).fetchAll()
+                    .then(function(results) {
+                        showResults(results);
+                    })
+            } else {
+                Assignment.equalTo(name, valueN).fetchAll()
+                    .then(function(results) {
+                        showResults(results);
+                    })
+            }
+        }
+
+        function levelSort() {
             Assignment.order("level", true).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
-    }
+        }
 
-    function showResults(results) {
+        function showResults(results) {
             // テーブルのヘッダを生成
             let msg = "<table><tr><th>Name</th><th>Level</th></tr>";
             for (let i = 0; i < results.length; i++) {
@@ -95,49 +98,50 @@
             msg += "</table>";
             $("#display").html(msg);
         }
-
     </script>
 </head>
+
 <body>
-	    <h1 class="text-light bg-success">cp_Assignments</h1>
-        <div>
-            <a onclick="fetchAll()" class="btn btn-outline-secondary text-info" role="buton">fetchAll</a>
+    <h1 class="text-light bg-success">cp_Assignments</h1>
+    <div>
+        <a onclick="fetchAll()" class="btn btn-outline-secondary text-info" role="buton">fetchAll</a>
+    </div>
+    <div>
+
+        <label for="name">name:</label>
+        <input type="text" id="nameData" placeholder="名前">
+
+        <br>
+
+        <label for="level">level:</label>
+        <input type="number" id="levelData" placeholder="レベル">
+
+    </div>
+    <div class="row justify-content-end">
+        <a onclick="registData()" class="btn btn-outline-secondary" role="button">Regist</a>
+        <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
+
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button onclick="nameSort()" type="button" class="btn btn-dark">nameSort</button>
+            <button onclick="levelSort()" type="button" class="btn btn-secondary">levelSort</button>
         </div>
-        <div>
-            
-            <label for="name">name:</label>
-            <input type="text" id="nameData" placeholder="名前">
-            
-            <br>
-            
-            <label for="level">level:</label>
-            <input type="number" id="levelData" placeholder="レベル">
-            
-        </div>
-        <div class = "row justify-content-end">
-            <a onclick="registData()" class="btn btn-outline-secondary" role="button">Regist</a>
-            <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
-            
-        </div>
-
-        <div class = "row justify-content-center">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button onclick="nameSort()" type="button" class="btn btn-dark">nameSort</button>
-                <button onclick="levelSort()" type="button" class="btn btn-secondary">levelSort</button>
-                </div>
-        </div>
+    </div>
 
 
 
 
-        <div id="display" class="text-light bg-info">
-            Results
-        </div>
+    <div id="display" class="text-light bg-info">
+        Results
+    </div>
 
 
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
+
 </html>
