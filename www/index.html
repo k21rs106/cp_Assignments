@@ -60,10 +60,18 @@
     }
 
     function nameSort() {
+        let valueN = $("#nameData").val();
+        if(valueN == ""){
             Assignment.order("name", false).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
+        }else{
+            Assignment.equalTo(name, valueN).fetchAll()
+            .then(function(results){
+                showResults(results);
+            })
+        }
     }
     
     function levelSort() {
